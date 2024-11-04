@@ -23,9 +23,16 @@ pipeline {
 
         stage ('Deployment Stage') {
             steps {
-                withMaven(maven : 'maven') {
-                    sh 'mvn tomcat7:deploy'
-                }
+               withCredentials([usernamePassword(credentialsId: 'Tomcat_Credentials', usernameVariable: 'TOMCAT_USER', passwordVariable: 'TOMCAT_PASS')]) {
+                        // Run Maven command with Tomcat credentials
+                        sh """
+                        mvn clean install org.apache.tomcat.maven:tomcat7-maven-plugin:2.2:deploy \
+                        -Dtomcat.username=deployer \
+                        -Dtomcat.password=deployer \
+                        -Durl=http://23.20.138.252:8080/manager/text \
+                        -Dpath=/helloworld-webapp
+                        """
+                    }
             }
         }
     }
