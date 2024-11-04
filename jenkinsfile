@@ -23,7 +23,7 @@ pipeline {
 
         stage ('Deployment Stage') {
             steps {
-               withCredentials([usernamePassword(credentialsId: 'Tomcat_Credentials', usernameVariable: 'TOMCAT_USER', passwordVariable: 'TOMCAT_PASS')]) {
+                withMaven(maven : 'maven') {
                         // Run Maven command with Tomcat credentials
                         sh """
                         mvn clean install org.apache.tomcat.maven:tomcat7-maven-plugin:2.2:deploy \
