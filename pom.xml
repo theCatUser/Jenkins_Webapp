@@ -69,7 +69,7 @@
                 <configuration>
                 <url>http://23.20.138.252:8080/manager/text</url>
                 <server>TomcatServer</server>
-                <path>/helloworld-webapp</path>
+                <path>/jenkins-webapp</path>
                   </configuration>
   </plugin>
 
